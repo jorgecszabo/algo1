@@ -1,0 +1,27 @@
+# ninja log v5
+1	586	1653775836659753014	CMakeFiles/tpi.dir/ejercicios.o	62c14732b4a1b401
+1	750	1653775836805755904	CMakeFiles/tpi.dir/auxiliares.o	248fd7671546b0cc
+3	934	1653775836999759745	lib/googletest-master/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o	820f415336213871
+0	1004	1653775837083761408	CMakeFiles/tpi.dir/main.o	2168cf541f60aa47
+1	1089	1653775837168763090	CMakeFiles/tpi.dir/testEnunciado/distanciaTotalTEST.o	5cdfaf2d320c813f
+1	1093	1653775837176763249	CMakeFiles/tpi.dir/testEnunciado/cantidadDeSaltosTEST.o	23e4d5c9fedc827
+2	1140	1653775837223764179	CMakeFiles/tpi.dir/testEnunciado/flotaTEST.o	cfcbc64c377c849d
+1	1145	1653775837228764278	CMakeFiles/tpi.dir/testEnunciado/construirGrillaTEST.o	fdbe4f8ae3da936c
+1	1153	1653775837237764456	CMakeFiles/tpi.dir/testEnunciado/excesoDeVelocidadTEST.o	3903f3f00d266471
+2	1170	1653775837254764793	CMakeFiles/tpi.dir/testEnunciado/tiempoTotalTEST.o	b879fb4f15497382
+2	1202	1653775837278765268	CMakeFiles/tpi.dir/testEnunciado/recorridoNoCubiertoTEST.o	3fb855182325166e
+1	1209	1653775837292765545	CMakeFiles/tpi.dir/testEnunciado/corregirViajeTEST.o	f3d248573685b042
+1	1036	1653775896050928755	CMakeFiles/tpi.dir/main.o	2168cf541f60aa47
+3	1064	1653775896105929844	lib/googletest-master/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o	820f415336213871
+1	1131	1653775896152930774	CMakeFiles/tpi.dir/testEnunciado/construirGrillaTEST.o	fdbe4f8ae3da936c
+2	1143	1653775896182931368	CMakeFiles/tpi.dir/testEnunciado/tiempoTotalTEST.o	b879fb4f15497382
+2	1144	1653775896179931309	CMakeFiles/tpi.dir/testEnunciado/excesoDeVelocidadTEST.o	3903f3f00d266471
+2	1165	1653775896205931823	CMakeFiles/tpi.dir/testEnunciado/flotaTEST.o	cfcbc64c377c849d
+1	1190	1653775896229932298	CMakeFiles/tpi.dir/testEnunciado/distanciaTotalTEST.o	5cdfaf2d320c813f
+1	1303	1653775896342934536	CMakeFiles/tpi.dir/testEnunciado/cantidadDeSaltosTEST.o	23e4d5c9fedc827
+2	1340	1653775896377935228	CMakeFiles/tpi.dir/testEnunciado/recorridoNoCubiertoTEST.o	3fb855182325166e
+1	1392	1653775896433936337	CMakeFiles/tpi.dir/testEnunciado/corregirViajeTEST.o	f3d248573685b042
+2	3424	1653775898449976248	lib/googletest-master/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o	4ddf644f6fd7eafe
+3425	3490	1653775898532977891	lib/googletest-master/googlemock/gtest/libgtestd.a	e59c63fd34995c41
+3490	3512	1653775898556978366	lib/googletest-master/googlemock/gtest/libgtest_maind.a	a671b6ff8c315229
+3512	3681	1653775898723981672	../tpi	372cfe9b6ec217d2
