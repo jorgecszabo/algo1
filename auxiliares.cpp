@@ -47,6 +47,15 @@ double distEnKM(gps posicion1, gps posicion2) {
     double c = 2 * asin(sqrt(a));
     return radioTierra * c;
 }
+// devuelve la velocidad en km/h entre dos puntos de un viaje
+double velocidadEnKPH(tuple<tiempo, gps> p0, tuple<tiempo, gps> p1) {
+    double dist = distEnKM(obtenerPosicion(p0), obtenerPosicion(p1));
+    double tiempoH = (
+            obtenerTiempo(p0) - obtenerTiempo(p1)
+            ) / 3600;
+
+    return abs(dist/tiempoH);
+}
 
 gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud){
     double lat = obtenerLatitud(p);
@@ -117,4 +126,3 @@ void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchi
     myfile.close();
 
 }
-
