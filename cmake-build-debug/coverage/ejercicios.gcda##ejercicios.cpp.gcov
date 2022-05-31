@@ -1,0 +1,195 @@
+        -:    0:Source:/home/jorge/src/algo1/ejercicios.cpp
+        -:    0:Graph:/home/jorge/src/algo1/cmake-build-debug/CMakeFiles/tpi.dir/ejercicios.gcno
+        -:    0:Data:/home/jorge/src/algo1/cmake-build-debug/CMakeFiles/tpi.dir/ejercicios.gcda
+        -:    0:Runs:1
+        -:    1:#include "ejercicios.h"
+        -:    2:#include "auxiliares.h"
+        -:    3:#include <iostream>
+        -:    4:#include <algorithm>
+        -:    5:#include <fstream>
+        -:    6:#include <iomanip>
+        -:    7:
+        -:    8:using namespace std;
+        -:    9:
+        -:   10:/******++++**************************** EJERCICIO tiempoTotal ***********+++***********************/
+function _Z11tiempoTotalSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EE called 2 returned 100% blocks executed 100%
+        2:   11:tiempo tiempoTotal(viaje v) {
+        2:   12:    tiempo tiempoMinimo = obtenerTiempo(v[0]);  //3
+        2:   12-block  0
+call    0 returned 2
+call    1 returned 2
+        2:   13:    tiempo tiempoMaximo = obtenerTiempo(v[0]);  //3
+call    0 returned 2
+call    1 returned 2
+       22:   14:    for (int i = 0; i < v.size(); i++) {    //1 + n(2 + 1)
+       20:   14-block  0
+       22:   14-block  1
+call    0 returned 22
+branch  1 taken 20
+branch  2 taken 2 (fallthrough)
+       20:   15:        if (obtenerTiempo(v[i]) > tiempoMaximo) //3
+       20:   15-block  0
+call    0 returned 20
+call    1 returned 20
+branch  2 taken 13 (fallthrough)
+branch  3 taken 7
+       13:   16:            tiempoMaximo = obtenerTiempo(v[i]); //3
+       13:   16-block  0
+call    0 returned 13
+call    1 returned 13
+       20:   17:        if (obtenerTiempo(v[i]) < tiempoMinimo) //3
+       20:   17-block  0
+call    0 returned 20
+call    1 returned 20
+branch  2 taken 1 (fallthrough)
+branch  3 taken 19
+        1:   18:            tiempoMinimo = obtenerTiempo(v[i]); //3
+        1:   18-block  0
+call    0 returned 1
+call    1 returned 1
+        -:   19:    } //t_ciclo(n) = 1 + 2 + n(3*5) = 15n + 3
+        2:   20:    tiempo t = tiempoMaximo - tiempoMinimo; //2
+        2:   21:    return t;
+        2:   21-block  0
+        -:   22:} //t(n) = 15n + 3 + 3 + 3 + 2 = 15n + 11 --> O(n)
+        -:   23:
+        -:   24:/************++*********************** EJERCICIO distanciaTotal ************++*********************/
+        -:   25://insertionSort implementado en base a la teórica 9.
+function _Z6insertRSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EEi called 3 returned 100% blocks executed 100%
+        3:   26:void insert (viaje &v, int i) {
+        4:   27:    while (i > 0 && obtenerTiempo(v[i]) < obtenerTiempo(v[i-1])) { //2 + 2 + 1 + 2 = 7
+        3:   27-block  0
+        4:   27-block  1
+branch  0 taken 2 (fallthrough)
+branch  1 taken 2
+        2:   27-block  2
+call    2 returned 2
+call    3 returned 2
+call    4 returned 2
+call    5 returned 2
+branch  6 taken 1 (fallthrough)
+branch  7 taken 1
+        1:   27-block  3
+        3:   27-block  4
+        4:   27-block  5
+branch  8 taken 1
+branch  9 taken 3 (fallthrough)
+        1:   28:        swap(v[i], v[i-1]); //3
+        1:   28-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+        1:   29:        i--; //1
+        -:   30:    } //t(n) = 7 + n(7 + 3 + 1) = 11n + 7
+        3:   31:} //t_insert(n) = 11n + 7
+        -:   32:
+function _Z13insertionSortRSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EE called 1 returned 100% blocks executed 100%
+        1:   33:void insertionSort(viaje &v) {
+        4:   34:    for (int i = 0; i < v.size(); i++) { //1 + 3 + 1
+        1:   34-block  0
+        4:   34-block  1
+call    0 returned 4
+branch  1 taken 3
+branch  2 taken 1 (fallthrough)
+        3:   35:        insert(v, i); //11n + 7 + 2
+        3:   35-block  0
+call    0 returned 3
+        -:   36:    } //t(n) = 1 + 3 + n(3 + 1 + 11n + 9) = 4 + 11n^2 + 13 n --> O(n^2)
+        1:   37:}
+        -:   38:
+function _Z14distanciaTotalSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EE called 1 returned 100% blocks executed 93%
+        1:   39:distancia distanciaTotal(viaje v) {
+        1:   40:    distancia d = 0; //1
+        1:   41:    insertionSort(v); //1 + c1 * n^2
+        1:   41-block  0
+call    0 returned 1
+        3:   42:    for (int i = 1; i < v.size(); i++) { // 1 + 4 + 1
+        3:   42-block  0
+call    0 returned 3
+branch  1 taken 2
+branch  2 taken 1 (fallthrough)
+        2:   43:        d += distEnKM(obtenerPosicion(v[i - 1]), obtenerPosicion(v[i])); // 2 + 2 + 2
+        2:   43-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:   43-block  1
+call    4 returned 2
+call    5 returned 2
+branch  6 taken 2 (fallthrough)
+branch  7 taken 0 (throw)
+        2:   43-block  2
+call    8 returned 2
+branch  9 taken 2 (fallthrough)
+branch 10 taken 0 (throw)
+        2:   43-block  3
+    $$$$$:   43-block  4
+        -:   44:    } //t(n) = 1 + 4 + n(4 + 1 + 6) = 5 + 11n
+        -:   45:
+        1:   46:    return d; //1
+        1:   46-block  0
+        1:   46-block  1
+        -:   47:} //t_distanciaTotal(n) = 1 + 1 + c1*n^2 + 5 + 11n + 1 = 8 + c1 * n^2 + 11n --> O(n^2), n = v.size()
+        -:   48:
+        -:   49:/*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
+function _Z17excesoDeVelocidadSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EE called 2 returned 100% blocks executed 100%
+        2:   50:bool excesoDeVelocidad(viaje v) {
+        2:   51:    bool resp = false;
+        -:   52:    // codigo
+        -:   53:
+        2:   54:    return resp;
+        2:   54-block  0
+        -:   55:}
+        -:   56:
+        -:   57:/************************************ EJERCICIO recorridoCubierto *******************************/
+function _Z19recorridoNoCubiertoSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EES_IS1_SaIS1_EEd called 2 returned 100% blocks executed 100%
+        2:   58:vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
+        2:   59:    vector<gps> resp;
+        2:   59-block  0
+call    0 returned 2
+        -:   60:    // codigo
+        -:   61:
+        2:   62:    return resp;
+        -:   63:}
+        -:   64:
+        -:   65:/***************************************** EJERCICIO flota ***************************************/
+function _Z5flotaSt6vectorIS_ISt5tupleIJdS0_IJddEEEESaIS2_EESaIS4_EEdd called 2 returned 100% blocks executed 100%
+        2:   66:int flota(vector<viaje> f, tiempo t0, tiempo tf) {
+        -:   67:    int resp;
+        -:   68:    // codigo
+        -:   69:
+        2:   70:    return resp;
+        2:   70-block  0
+        -:   71:}
+        -:   72:
+        -:   73:/************************************** EJERCICIO construirGrilla *******************************/
+function _Z15construirGrillaSt5tupleIJddEES0_ii called 2 returned 100% blocks executed 100%
+        2:   74:grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
+        2:   75:    grilla resp = {};
+        2:   75-block  0
+call    0 returned 2
+        -:   76:    // codigo
+        -:   77:
+        2:   78:    return resp;
+        -:   79:}
+        -:   80:
+        -:   81:/************************************* EJERCICIO cantidadDeSaltos ******************************/
+function _Z16cantidadDeSaltosSt6vectorISt5tupleIJS0_IJddEES1_S0_IJiiEEEESaIS3_EES_IS0_IJdS1_EESaIS6_EE called 1 returned 100% blocks executed 100%
+        1:   82:int cantidadDeSaltos(grilla g, viaje v) {
+        -:   83:    int resp;
+        -:   84:    // codigo
+        -:   85:
+        1:   86:    return resp;
+        1:   86-block  0
+        -:   87:}
+        -:   88:
+        -:   89:
+        -:   90:/************************************* EJERCICIO corregirViaje ******************************/
+function _Z13corregirViajeRSt6vectorISt5tupleIJdS0_IJddEEEESaIS2_EES_IdSaIdEE called 1 returned 100% blocks executed 100%
+        1:   91:void corregirViaje(viaje& v, vector<tiempo> errores){
+        -:   92:    // codig
+        -:   93:
+        1:   94:    return;
+        1:   94-block  0
+        -:   95:}

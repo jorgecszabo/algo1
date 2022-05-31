@@ -1,10 +1,5 @@
 /home/jorge/toolchains/clion-2021.3.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/jorge/toolchains/clion-2021.3.4/bin/ninja/linux/ninja -G Ninja -S /home/jorge/src/algo1 -B /home/jorge/src/algo1/cmake-build-debug
--- Found PythonInterp: /usr/bin/python (found version "3.10.4") 
--- Looking for pthread.h
--- Looking for pthread.h - found
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
--- Found Threads: TRUE  
+-- Found Python: /usr/bin/python3.10 (found version "3.10.4") found components: Interpreter 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/jorge/src/algo1/cmake-build-debug
