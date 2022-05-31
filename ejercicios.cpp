@@ -49,7 +49,10 @@ distancia distanciaTotal(viaje v) {
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
 bool excesoDeVelocidad(viaje v) {
     bool resp = false;
-    // codigo
+    insertionSort(v);
+    for (int i = 1; i < v.size(); ++i) {
+        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) resp = true;
+    }
 
     return resp;
 }
