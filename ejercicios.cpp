@@ -81,7 +81,7 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     for (int i = 0; i < f.size(); i++) {
         for (int j = 0; j < f[i].size(); j++) {
             tiempo tiempoActual = obtenerTiempo(f[i][j]);
-            if (tiempoActual <= tf && tiempoActual >= t0) {
+            if (tiempoActual < tf && tiempoActual > t0) {
                 resp++;
                 break;
             }
