@@ -48,28 +48,45 @@ distancia distanciaTotal(viaje v) {
 
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
 bool excesoDeVelocidad(viaje v) {
-    bool resp = false;
     insertionSort(v);
     for (int i = 1; i < v.size(); ++i) {
-        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) resp = true;
+        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) return true;
     }
 
-    return resp;
+    return false;
 }
 
 /************************************ EJERCICIO recorridoCubierto *******************************/
+//TODO (ESTE EJERCICIO NO ANDA)
+bool cubierto(gps p, viaje &v, distancia &u) {
+    for (int i = 0; i < v.size(); i++) {
+        if (distEnKM(obtenerPosicion(v[i]), p) < u)
+            return true;
+    }
+    return false;
+}
+
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
-    // codigo
-
+    for (int i = 0; i < r.size(); i++) {
+        if(!cubierto(r[i], v, u))
+            resp.push_back(obtenerPosicion(v[i]));
+    }
     return resp;
 }
 
 /***************************************** EJERCICIO flota ***************************************/
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
-    int resp;
-    // codigo
-
+    int resp = 0;
+    for (int i = 0; i < f.size(); i++) {
+        for (int j = 0; j < f[i].size(); j++) {
+            tiempo tiempoActual = obtenerTiempo(f[i][j]);
+            if (tiempoActual <= tf && tiempoActual >= t0) {
+                resp++;
+                break;
+            }
+        }
+    }
     return resp;
 }
 
