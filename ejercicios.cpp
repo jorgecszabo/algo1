@@ -75,13 +75,14 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     }
     return resp;
 }
+
 /***************************************** EJERCICIO flota ***************************************/
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     int resp = 0;
     for (int i = 0; i < f.size(); i++) {
         for (int j = 0; j < f[i].size(); j++) {
             tiempo tiempoActual = obtenerTiempo(f[i][j]);
-            if (tiempoActual < tf && tiempoActual > t0) {
+            if (tiempoActual <= tf && tiempoActual >= t0) {
                 resp++;
                 break;
             }
