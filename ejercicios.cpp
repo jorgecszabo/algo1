@@ -70,7 +70,7 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
     for (int i = 0; i < r.size(); i++) {
         if(!cubierto(r[i], v, u))
-            resp.push_back(obtenerPosicion(v[i]));
+            resp.push_back(r[i]);
     }
     return resp;
 }
