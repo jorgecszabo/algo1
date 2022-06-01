@@ -87,7 +87,7 @@ gps puntoGps(double latitud, double longitud) {
 tuple <tiempo, gps> medicion(tiempo t, gps g) {
     return make_tuple(t, g);
 }
-/*
+
 void guardarGrillaEnArchivo(grilla g, string nombreArchivo) {
     ofstream myfile;
     float esq1_lat, esq2_lat, esq1_lng, esq2_lng;
@@ -136,4 +136,3 @@ void guardarRecorridosEnArchivo(vector <recorrido> recorridos, string nombreArch
     myfile.close();
 
 }
-*/
