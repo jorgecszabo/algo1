@@ -121,8 +121,18 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
 
 /************************************* EJERCICIO cantidadDeSaltos ******************************/
 int cantidadDeSaltos(grilla g, viaje v) {
-    int resp;
-    // codigo
+    int resp = 0;
+    insertionSort(v);
+
+    for (int i = 1; i < v.size(); ++i) {
+
+        nombre celdaPrimerPunto = puntoANombreCelda(obtenerPosicion(v[i - 1]), g);
+        nombre celdaSegundoPunto = puntoANombreCelda(obtenerPosicion(v[i]), g);
+
+        double distancia = distanciaEntreCeldas(celdaPrimerPunto, celdaSegundoPunto);
+
+        if (distancia > 1) resp++;
+    }
 
     return resp;
 }

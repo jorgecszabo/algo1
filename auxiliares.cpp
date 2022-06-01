@@ -67,6 +67,28 @@ double velocidadEnKPH(tuple <tiempo, gps> p0, tuple <tiempo, gps> p1) {
     return abs(dist / tiempoH);
 }
 
+double distanciaEntreCeldas(nombre a, nombre b) {
+    return sqrt(
+            pow((get<0>(a) - get<0>(b)), 2) +
+            pow((get<1>(a) - get<1>(b)), 2)
+    );
+}
+
+nombre puntoANombreCelda(gps x, grilla g) {
+    for (int i = 0; i < g.size(); ++i) {
+        gps esq1 = get<0>(g[i]);
+        gps esq2 = get<1>(g[i]);
+
+        bool enRangoLatitud = obtenerLatitud(esq1) <= obtenerLatitud(x) && obtenerLatitud(x) < obtenerLatitud(esq2);
+        bool enRangoLongitud =
+                obtenerLongitud(esq1) <= obtenerLongitud(x) && obtenerLongitud(x) < obtenerLongitud(esq2);
+
+        bool dentroCuadrante = enRangoLatitud && enRangoLongitud;
+
+        if (dentroCuadrante) return get<2>(g[i]);
+    }
+}
+
 gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud) {
     double lat = obtenerLatitud(p);
     double lon = obtenerLongitud(p);
