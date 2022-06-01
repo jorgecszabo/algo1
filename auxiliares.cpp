@@ -18,13 +18,22 @@ double obtenerLongitud(gps posicion) {
     return get<1>(posicion);
 }
 
-gps obtenerPosicion(tuple<tiempo, gps> medicion) {
+celda crearCelda(gps esq1, gps esq2, int n, int m) {
+    nombre nombre = make_tuple(n, m);
+
+    return make_tuple(
+            esq1, esq2, nombre
+    );
+}
+
+gps obtenerPosicion(tuple <tiempo, gps> medicion) {
     return get<1>(medicion);
 }
 
-tiempo obtenerTiempo(tuple<tiempo, gps> medicion) {
+tiempo obtenerTiempo(tuple <tiempo, gps> medicion) {
     return get<0>(medicion);
 }
+
 double distEnKM(gps posicion1, gps posicion2) {
     double latitud1 = obtenerLatitud(posicion1);
     double latitud2 = obtenerLatitud(posicion2);
@@ -47,17 +56,18 @@ double distEnKM(gps posicion1, gps posicion2) {
     double c = 2 * asin(sqrt(a));
     return radioTierra * c;
 }
+
 // devuelve la velocidad en km/h entre dos puntos de un viaje
-double velocidadEnKPH(tuple<tiempo, gps> p0, tuple<tiempo, gps> p1) {
+double velocidadEnKPH(tuple <tiempo, gps> p0, tuple <tiempo, gps> p1) {
     double dist = distEnKM(obtenerPosicion(p0), obtenerPosicion(p1));
     double tiempoH = (
-            obtenerTiempo(p0) - obtenerTiempo(p1)
-            ) / 3600;
+                             obtenerTiempo(p0) - obtenerTiempo(p1)
+                     ) / 3600;
 
-    return abs(dist/tiempoH);
+    return abs(dist / tiempoH);
 }
 
-gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud){
+gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud) {
     double lat = obtenerLatitud(p);
     double lon = obtenerLongitud(p);
 
@@ -74,18 +84,18 @@ gps puntoGps(double latitud, double longitud) {
     return make_tuple(latitud, longitud);
 }
 
-tuple<tiempo, gps> medicion(tiempo t, gps g) {
+tuple <tiempo, gps> medicion(tiempo t, gps g) {
     return make_tuple(t, g);
 }
-
-void guardarGrillaEnArchivo(grilla g, string nombreArchivo){
+/*
+void guardarGrillaEnArchivo(grilla g, string nombreArchivo) {
     ofstream myfile;
     float esq1_lat, esq2_lat, esq1_lng, esq2_lng;
     int name_0, name_1;
 
     myfile.open(nombreArchivo);
     myfile << std::fixed << std::setprecision(5);
-    for(int i = 0; i < g.size(); i++){
+    for (int i = 0; i < g.size(); i++) {
         esq1_lat = get<0>(get<0>(g[i]));
         esq1_lng = get<1>(get<0>(g[i]));
 
@@ -107,16 +117,16 @@ void guardarGrillaEnArchivo(grilla g, string nombreArchivo){
 
 }
 
-void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchivo){
+void guardarRecorridosEnArchivo(vector <recorrido> recorridos, string nombreArchivo) {
     ofstream myfile;
     float lat, lng;
 
     myfile.open(nombreArchivo);
     myfile << std::fixed << std::setprecision(5);
-    for(int i = 0; i < recorridos.size(); i++){
-        for(int k = 0; k < recorridos[i].size(); k++){
-            lat= get<0>(recorridos[i][k]);
-            lng= get<1>(recorridos[i][k]);
+    for (int i = 0; i < recorridos.size(); i++) {
+        for (int k = 0; k < recorridos[i].size(); k++) {
+            lat = get<0>(recorridos[i][k]);
+            lng = get<1>(recorridos[i][k]);
 
             myfile << i << "\t"
                    << lat << "\t"
@@ -126,3 +136,4 @@ void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchi
     myfile.close();
 
 }
+*/

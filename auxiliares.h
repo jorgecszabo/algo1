@@ -9,6 +9,7 @@ double obtenerLongitud(gps posicion);
 gps obtenerPosicion(tuple<tiempo, gps> medicion);
 tiempo obtenerTiempo(tuple<tiempo, gps> medicion);
 double distEnKM(gps posicion1, gps posicion2);
+celda crearCelda(gps esq1, gps esq2, int n, int m);
 double velocidadEnKPH(tuple<tiempo, gps> p0, tuple<tiempo, gps> p1);
 gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud);
 gps puntoGps(double latitud, double longitud);
