@@ -13,4 +13,6 @@ int cantidadDeSaltos(grilla g, viaje v);
 void corregirViaje(viaje& v, vector<tiempo> errores);
 
 
+gps corregirPunto(viaje &v, int indice_p1, int indice_p2, tiempo t);
+
 #endif //TRANSPORTEURBANO_SOLUCION_H

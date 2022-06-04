@@ -57,7 +57,6 @@ bool excesoDeVelocidad(viaje v) {
 }
 
 /************************************ EJERCICIO recorridoCubierto *******************************/
-//TODO (ESTE EJERCICIO NO ANDA)
 bool cubierto(gps p, viaje &v, distancia &u) {
     for (int i = 0; i < v.size(); i++) {
         if (distEnKM(obtenerPosicion(v[i]), p) < u)
@@ -115,7 +114,7 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
 
         }
     }
-
+    //guardarGrillaEnArchivo(resp, "grilla.csv");
     return resp;
 }
 
@@ -139,8 +138,95 @@ int cantidadDeSaltos(grilla g, viaje v) {
 
 
 /************************************* EJERCICIO corregirViaje ******************************/
+bool esPuntoErroneo(vector<tiempo> &errores, tiempo t) {
+    for (int i = 0; i < errores.size(); i++) {
+        if (errores[i] == t)
+            return true;
+    }
+    return false;
+}
+
+int maximo(vector<double> v) {
+    int max = 0;
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] > v[max])
+            max = i;
+    }
+    return max;
+}
+
+tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos mas cercanos
+    //Esto es basicamente lo que planteamos la otra vez en discord
+    vector<distancia> dist(v.size());
+    int indice_viaje = -1;
+    for (int i = 0; i < v.size(); i++) {
+         if (obtenerTiempo(v[i]) == t) {
+             indice_viaje = i;
+             break;
+         }
+    }
+    vector<tiempo> tiempos(v.size());
+
+    for (int i = 0; i < v.size(); i++) {
+        if (!esPuntoErroneo(errores, obtenerTiempo(v[i]))) {
+            tiempos[i] = abs(obtenerTiempo(v[i]) - t);
+        } else {
+            tiempos[i] = 0;
+        }
+    }
+
+    int min1 = maximo(tiempos); //Esto hay que hacerlo por si el primer elemento de viaje es un punto erroneo
+    int min2 = min1;
+
+    for (int i = 0; i < tiempos.size() ; i++) {
+        if (tiempos[i] <= tiempos[min1] && tiempos[i] != 0) {
+            min2 = min1;
+            min1 = i;
+        } else if (tiempos[i] <= tiempos[min2] && tiempos[i] != tiempos[min1] && tiempos[i] != 0)
+            min2 = i;
+    }
+    return {indice_viaje ,min1, min2};
+}
+
+gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
+    gps p = obtenerPosicion(v[indice_p]);
+    gps q = obtenerPosicion(v[indice_q]);
+
+    if (obtenerLatitud(p) > obtenerLatitud(q)) { //para mantener la misma relación entre los puntos de entrada
+        swap(p,q);
+        swap(indice_p, indice_q);
+    }
+
+    tiempo tiempo_p = obtenerTiempo(v[indice_p]);
+    tiempo tiempo_q = obtenerTiempo(v[indice_q]);
+
+    //el punto corregido debe estar en una recta de la forma y = mx + c (y -> long punto corregido, x -> lat punto corregido)
+    double m = (obtenerLongitud(p) - obtenerLongitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
+    double c = (obtenerLongitud(q) * obtenerLatitud(p) - obtenerLongitud(p) * obtenerLatitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
+
+    if (obtenerLatitud(p) != obtenerLatitud(q)) {
+            double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/abs(tiempo_p - tiempo_q);
+            double latAprox = obtenerLatitud(p) + latPorSegundo * (tiempo_p - t);
+            double longAprox = m * latAprox + c;
+            return {latAprox, longAprox};
+    } else { //caso latitudes iguales
+            double longPorSegundo = abs(obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
+            double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
+            return {obtenerLatitud(p), longAprox};
+    }
+}
+
 void corregirViaje(viaje& v, vector<tiempo> errores){
     // codig
+    for (int i = 0; i < errores.size(); i++) {
+        tuple<int, int, int> puntosCercanos = losDosPuntosMasCercanos(v, errores, errores[i]);
+        int indice_viaje = get<0>(puntosCercanos);
+        int indice_p = get<1>(puntosCercanos);
+        int indice_q = get<2>(puntosCercanos);
 
-    return;
+        //cout << indice_viaje << indice_p << indice_q << endl;
+        gps punto = corregirPunto(v, indice_p, indice_q, errores[i]);
+        //cout << obtenerLatitud(punto) << " - " << obtenerLongitud(punto) << endl;
+        v[indice_viaje] = {errores[i], punto};
+    }
 }
