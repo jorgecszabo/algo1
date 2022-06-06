@@ -91,11 +91,9 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 
 /************************************** EJERCICIO construirGrilla *******************************/
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
-    // n = alto = latitud
-    // m = ancho = longitud
     grilla resp = {};
-    double altoCelda = (obtenerLatitud(esq1) - obtenerLatitud(esq2)) / m;
-    double anchoCelda = (obtenerLongitud(esq1) - obtenerLongitud(esq2)) / n;
+    double altoCelda = (obtenerLatitud(esq1) - obtenerLatitud(esq2)) / n;
+    double anchoCelda = (obtenerLongitud(esq1) - obtenerLongitud(esq2)) / m;
 
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
