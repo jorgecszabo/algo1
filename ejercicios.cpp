@@ -201,14 +201,13 @@ gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
     tiempo tiempo_q = obtenerTiempo(v[indice_q]);
 
     //el punto corregido debe estar en una recta de la forma y = mx + c (y -> long punto corregido, x -> lat punto corregido)
-    double m = (obtenerLongitud(p) - obtenerLongitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
-    double c = (obtenerLongitud(q) * obtenerLatitud(p) - obtenerLongitud(p) * obtenerLatitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
-
     if (obtenerLatitud(p) != obtenerLatitud(q)) {
-            double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/abs(tiempo_p - tiempo_q);
-            double latAprox = obtenerLatitud(p) + latPorSegundo * (tiempo_p - t);
-            double longAprox = m * latAprox + c;
-            return {latAprox, longAprox};
+        double m = (obtenerLongitud(p) - obtenerLongitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
+        double c = (obtenerLongitud(q) * obtenerLatitud(p) - obtenerLongitud(p) * obtenerLatitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
+        double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/abs(tiempo_p - tiempo_q);
+        double latAprox = obtenerLatitud(p) + latPorSegundo * (tiempo_p - t);
+        double longAprox = m * latAprox + c;
+        return {latAprox, longAprox};
     } else { //caso latitudes iguales
             double longPorSegundo = abs(obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
             double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
