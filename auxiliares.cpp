@@ -81,7 +81,7 @@ nombre puntoANombreCelda(gps x, grilla g) {
 
         bool enRangoLatitud = obtenerLatitud(esq1) <= obtenerLatitud(x) && obtenerLatitud(x) < obtenerLatitud(esq2);
         bool enRangoLongitud =
-                obtenerLongitud(esq1) <= obtenerLongitud(x) && obtenerLongitud(x) < obtenerLongitud(esq2);
+                obtenerLongitud(esq1) < obtenerLongitud(x) && obtenerLongitud(x) <= obtenerLongitud(esq2);
 
         bool dentroCuadrante = enRangoLatitud && enRangoLongitud;
 

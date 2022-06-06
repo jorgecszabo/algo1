@@ -56,7 +56,7 @@ bool excesoDeVelocidad(viaje v) {
     return false;
 }
 
-/************************************ EJERCICIO recorridoCubierto *******************************/
+/************************************ EJERCICIO recorridoNoCubierto *******************************/
 bool cubierto(gps p, viaje &v, distancia &u) {
     for (int i = 0; i < v.size(); i++) {
         if (distEnKM(obtenerPosicion(v[i]), p) < u)
@@ -67,7 +67,6 @@ bool cubierto(gps p, viaje &v, distancia &u) {
 
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
-    u = u / 1000;  //Esto nos parece raro. Pero sin hacer eso el test falla.
     for (int i = 0; i < r.size(); i++) {
         if(!cubierto(r[i], v, u))
             resp.push_back(r[i]);
