@@ -2223,3 +2223,79 @@ TEST(corregirViajeTEST, faltaElUltimoOtraPuntaDelMundo){
         EXPECT_EQ(obtenerTiempo(v[i]),obtenerTiempo(res[i]));
     }
 }
+
+TEST(corregirViajeTEST, igualLatitudInvOtraParteDelMundo){
+    viaje v = {medicion(T0+240, puntoGps(-64.21297, -31.46503)),
+               medicion(T0+120, puntoGps(-12, 12)),
+               medicion(T0+0, puntoGps(-64.21297, -31.44705)),
+               medicion(T0+310, puntoGps(-64.21297, -31.43705)),
+               medicion(T0+390, puntoGps(-64.21297, -31.42705)),
+               medicion(T0+444, puntoGps(-64.21297, -31.41705)),
+    };
+
+    viaje res = {medicion(T0+240, puntoGps(-64.21297, -31.46503)),
+                 medicion(T0+120, puntoGps(-64.21297, -31.45604)),
+                 medicion(T0+0, puntoGps(-64.21297, -31.44705)),
+                 medicion(T0+310, puntoGps(-64.21297, -31.43705)),
+                 medicion(T0+390, puntoGps(-64.21297, -31.42705)),
+                 medicion(T0+444, puntoGps(-64.21297, -31.41705)),
+    };
+
+    vector<tiempo> errores = {T0+120};
+
+    //nos mudamos al otro hemisferio!
+
+    for (int i = 0; i < v.size(); i++) {
+        v[i] = {get<0>(v[i]), {-1 * get<0>(get<1>(v[i])), -1 * get<1>(get<1>(v[i]))}};
+        res[i] = {get<0>(res[i]), {-1 * get<0>(get<1>(res[i])), -1 * get<1>(get<1>(res[i]))}};
+    }
+
+    corregirViaje(v, errores);
+    EXPECT_EQ(v.size(),res.size());
+
+    for (int i = 0; i < res.size(); ++i) {
+        EXPECT_NEAR(obtenerLatitud(obtenerPosicion(v[i])),
+                    obtenerLatitud(obtenerPosicion(res[i])), 0.00001);
+        EXPECT_NEAR(obtenerLongitud(obtenerPosicion(v[i])),
+                    obtenerLongitud(obtenerPosicion(res[i])), 0.00001);
+        EXPECT_EQ(obtenerTiempo(v[i]),obtenerTiempo(res[i]));
+    }
+}
+
+TEST(corregirViajeTEST, igualLatitudOtraParteDelMundo){
+    viaje v = {medicion(T0+0, puntoGps(-64.21297, -31.46503)),
+               medicion(T0+120, puntoGps(-12, 12)),
+               medicion(T0+240, puntoGps(-64.21297, -31.44705)),
+               medicion(T0+310, puntoGps(-64.21297, -31.43705)),
+               medicion(T0+390, puntoGps(-64.21297, -31.42705)),
+               medicion(T0+444, puntoGps(-64.21297, -31.41705)),
+    };
+
+    viaje res = {medicion(T0+0, puntoGps(-64.21297, -31.46503)),
+                 medicion(T0+120, puntoGps(-64.21297, -31.45604)),
+                 medicion(T0+240, puntoGps(-64.21297, -31.44705)),
+                 medicion(T0+310, puntoGps(-64.21297, -31.43705)),
+                 medicion(T0+390, puntoGps(-64.21297, -31.42705)),
+                 medicion(T0+444, puntoGps(-64.21297, -31.41705)),
+    };
+
+    vector<tiempo> errores = {T0+120};
+
+    //nos mudamos al otro hemisferio!
+
+    for (int i = 0; i < v.size(); i++) {
+        v[i] = {get<0>(v[i]), {-1 * get<0>(get<1>(v[i])), -1 * get<1>(get<1>(v[i]))}};
+        res[i] = {get<0>(res[i]), {-1 * get<0>(get<1>(res[i])), -1 * get<1>(get<1>(res[i]))}};
+    }
+
+    corregirViaje(v, errores);
+    EXPECT_EQ(v.size(),res.size());
+
+    for (int i = 0; i < res.size(); ++i) {
+        EXPECT_NEAR(obtenerLatitud(obtenerPosicion(v[i])),
+                    obtenerLatitud(obtenerPosicion(res[i])), 0.00001);
+        EXPECT_NEAR(obtenerLongitud(obtenerPosicion(v[i])),
+                    obtenerLongitud(obtenerPosicion(res[i])), 0.00001);
+        EXPECT_EQ(obtenerTiempo(v[i]),obtenerTiempo(res[i]));
+    }
+}

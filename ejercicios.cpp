@@ -207,7 +207,7 @@ gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
         return {latAprox, longAprox};
 
     } else { //caso latitudes iguales
-            double longPorSegundo = abs(obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
+            double longPorSegundo = (obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
             double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
             return {obtenerLatitud(p), longAprox};
     }
