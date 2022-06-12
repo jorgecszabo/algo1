@@ -159,7 +159,7 @@ int maximo(vector<double> v) {
     return max;
 }
 
-tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos mas cercanos
+tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos más cercanos
     vector<distancia> dist(v.size());
     int indice_viaje = -1;
     for (int i = 0; i < v.size(); i++) {
@@ -178,7 +178,7 @@ tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  
         }
     }
 
-    int min1 = maximo(tiempos); //Esto hay que hacerlo por si el primer elemento de viaje es un punto erroneo
+    int min1 = maximo(tiempos); //Esto hay que hacerlo por si el primer elemento de viaje es un punto erróneo
     int min2 = min1;
 
     for (int i = 0; i < tiempos.size() ; i++) {
