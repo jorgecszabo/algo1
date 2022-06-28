@@ -12,10 +12,12 @@ tiempo tiempoTotal(viaje v) {
     tiempo tiempoMinimo = obtenerTiempo(v[0]);  //3
     tiempo tiempoMaximo = obtenerTiempo(v[0]);  //3
     for (int i = 0; i < v.size(); i++) {    //1 + n(2 + 1)
-        if (obtenerTiempo(v[i]) > tiempoMaximo) //3
-            tiempoMaximo = obtenerTiempo(v[i]); //3
-        if (obtenerTiempo(v[i]) < tiempoMinimo) //3
-            tiempoMinimo = obtenerTiempo(v[i]); //3
+        if (obtenerTiempo(v[i]) > tiempoMaximo) { //3
+            tiempoMaximo = obtenerTiempo(v[i]);
+        } else {//3
+            if (obtenerTiempo(v[i]) < tiempoMinimo) //3
+                tiempoMinimo = obtenerTiempo(v[i]);
+        }//3
     } //t_ciclo(n) = 1 + 2 + n(3*5) = 15n + 3
     tiempo t = tiempoMaximo - tiempoMinimo; //2
     return t;
@@ -48,21 +50,23 @@ distancia distanciaTotal(viaje v) {
 
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
 bool excesoDeVelocidad(viaje v) {
+    bool hayExceso = false;
     insertionSort(v);
     for (int i = 1; i < v.size(); ++i) {
-        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) return true;
+        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) hayExceso = true;
     }
 
-    return false;
+    return hayExceso;
 }
 
 /************************************ EJERCICIO recorridoNoCubierto *******************************/
 bool cubierto(gps p, viaje &v, distancia &u) {
+    bool estaCubierto = false;
     for (int i = 0; i < v.size(); i++) {
         if (distEnKM(obtenerPosicion(v[i]), p) < u)
-            return true;
+            estaCubierto = true;
     }
-    return false;
+    return estaCubierto;
 }
 
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {

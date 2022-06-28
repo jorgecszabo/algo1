@@ -75,18 +75,21 @@ double distanciaEntreCeldas(nombre a, nombre b) {
 }
 
 nombre puntoANombreCelda(gps x, grilla g) {
+    nombre res;
     for (int i = 0; i < g.size(); ++i) {
         gps esq1 = get<0>(g[i]);
         gps esq2 = get<1>(g[i]);
 
+        // ESTO:
         bool enRangoLatitud = obtenerLatitud(esq1) <= obtenerLatitud(x) && obtenerLatitud(x) < obtenerLatitud(esq2);
         bool enRangoLongitud =
                 obtenerLongitud(esq1) < obtenerLongitud(x) && obtenerLongitud(x) <= obtenerLongitud(esq2);
 
         bool dentroCuadrante = enRangoLatitud && enRangoLongitud;
 
-        if (dentroCuadrante) return get<2>(g[i]);
+        if (dentroCuadrante) res = get<2>(g[i]);
     }
+    return res;
 }
 
 gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud) {
