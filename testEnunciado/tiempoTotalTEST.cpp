@@ -34,3 +34,4 @@ TEST(tiempoTotalTEST, viajeLargoAlt){
                medicion(1.9, P)};
     EXPECT_DOUBLE_EQ(tiempoTotal(v),6.1);
 }
+

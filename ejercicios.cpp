@@ -60,6 +60,7 @@ bool excesoDeVelocidad(viaje v) {
 }
 
 /************************************ EJERCICIO recorridoNoCubierto *******************************/
+// n -> Longitud del viaje | m -> longitud del recorrido
 bool cubierto(gps p, viaje &v, distancia &u) {
     bool estaCubierto = false;
     for (int i = 0; i < v.size(); i++) {
@@ -71,12 +72,12 @@ bool cubierto(gps p, viaje &v, distancia &u) {
 
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
-    for (int i = 0; i < r.size(); i++) {
-        if(!cubierto(r[i], v, u))
-            resp.push_back(r[i]);
+    for (int i = 0; i < r.size(); i++) { //2 + 3 + m(3 + 1)
+        if(!cubierto(r[i], v, u)) //c1 * n
+            resp.push_back(r[i]); //2
     }
-    return resp;
-}
+    return resp; //1
+} //t(n,m) = 6 + m(6 + c1 * n) = 6 + 6m + c1*m + m*n -> O(n*m)
 
 /***************************************** EJERCICIO flota ***************************************/
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
@@ -94,6 +95,12 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 }
 
 /************************************** EJERCICIO construirGrilla *******************************/
+/*
+ * En este ejercicio usamos el tipo de dato long double porque de caso contrario el test fallaba a la hora
+ * de comparar la grilla computada con un resultado conocido debido a lo que suponemos es un error de
+ * redondeo. Para esta aplicación es un desperdicio de memoria.
+ */
+
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
     long double altoCelda = (obtenerLatitud(esq1) - obtenerLatitud(esq2)) / n;
@@ -156,8 +163,7 @@ int maximo(vector<double> v) {
     return max;
 }
 
-tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos mas cercanos
-    //Esto es basicamente lo que planteamos la otra vez en discord
+tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos más cercanos
     vector<distancia> dist(v.size());
     int indice_viaje = -1;
     for (int i = 0; i < v.size(); i++) {
@@ -176,7 +182,7 @@ tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  
         }
     }
 
-    int min1 = maximo(tiempos); //Esto hay que hacerlo por si el primer elemento de viaje es un punto erroneo
+    int min1 = maximo(tiempos); //Esto hay que hacerlo por si el primer elemento de viaje es un punto erróneo
     int min2 = min1;
 
     for (int i = 0; i < tiempos.size() ; i++) {
@@ -205,19 +211,19 @@ gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
     if (obtenerLatitud(p) != obtenerLatitud(q)) {
         double m = (obtenerLongitud(p) - obtenerLongitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
         double c = (obtenerLongitud(q) * obtenerLatitud(p) - obtenerLongitud(p) * obtenerLatitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
-        double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/abs(tiempo_p - tiempo_q);
-        double latAprox = obtenerLatitud(p) + latPorSegundo * (tiempo_p - t);
+        double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/(tiempo_p - tiempo_q);
+        double latAprox = obtenerLatitud(p) + latPorSegundo * abs(tiempo_p - t);
         double longAprox = m * latAprox + c;
         return {latAprox, longAprox};
-    } else { //caso latitudes iguales
-            double longPorSegundo = abs(obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
+
+    } else { //caso latitudes iguales para evitar dividir por cero
+            double longPorSegundo = (obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
             double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
             return {obtenerLatitud(p), longAprox};
     }
 }
 
 void corregirViaje(viaje& v, vector<tiempo> errores){
-    // codig
     for (int i = 0; i < errores.size(); i++) {
         tuple<int, int, int> puntosCercanos = losDosPuntosMasCercanos(v, errores, errores[i]);
         int indice_viaje = get<0>(puntosCercanos);
