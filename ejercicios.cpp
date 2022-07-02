@@ -149,11 +149,12 @@ int cantidadDeSaltos(grilla g, viaje v) {
 
 /************************************* EJERCICIO corregirViaje ******************************/
 bool esPuntoErroneo(vector<tiempo> &errores, tiempo t) {
+    bool res = false;
     for (int i = 0; i < errores.size(); i++) {
         if (errores[i] == t)
-            return true;
+            res = true;
     }
-    return false;
+    return res;
 }
 
 int maximo(vector<double> v) {
@@ -168,10 +169,9 @@ int maximo(vector<double> v) {
 tuple<int, int, int> losDosPuntosMasCercanos(viaje &v,vector<tiempo> &errores,  tiempo t) { //Devuelve los índices de viaje con los dos puntos más cercanos
     vector<distancia> dist(v.size());
     int indice_viaje = -1;
-    for (int i = 0; i < v.size(); i++) {
+    for (int i = 0; i < v.size() && indice_viaje == -1; i++) {
          if (obtenerTiempo(v[i]) == t) {
              indice_viaje = i;
-             break;
          }
     }
     vector<tiempo> tiempos(v.size());
@@ -209,6 +209,8 @@ gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
     tiempo tiempo_p = obtenerTiempo(v[indice_p]);
     tiempo tiempo_q = obtenerTiempo(v[indice_q]);
 
+    gps punto_corregido = {0.0, 0.0};
+
     //el punto corregido debe estar en una recta de la forma y = mx + c (y -> long punto corregido, x -> lat punto corregido)
     if (obtenerLatitud(p) != obtenerLatitud(q)) {
         double m = (obtenerLongitud(p) - obtenerLongitud(q))/(obtenerLatitud(p) - obtenerLatitud(q));
@@ -216,13 +218,14 @@ gps corregirPunto(viaje &v, int indice_p, int indice_q, tiempo t) {
         double latPorSegundo = (obtenerLatitud(p) - obtenerLatitud(q))/(tiempo_p - tiempo_q);
         double latAprox = obtenerLatitud(p) + latPorSegundo * abs(tiempo_p - t);
         double longAprox = m * latAprox + c;
-        return {latAprox, longAprox};
+        punto_corregido = {latAprox, longAprox};
 
     } else { //caso latitudes iguales para evitar dividir por cero
-            double longPorSegundo = (obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
-            double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
-            return {obtenerLatitud(p), longAprox};
+        double longPorSegundo = (obtenerLongitud(p) - obtenerLongitud(q))/abs(tiempo_p - tiempo_q);
+        double longAprox = obtenerLongitud(p) - longPorSegundo * abs(tiempo_p - t);
+        punto_corregido = {obtenerLatitud(p), longAprox};
     }
+    return punto_corregido;
 }
 
 void corregirViaje(viaje& v, vector<tiempo> errores){
