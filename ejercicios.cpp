@@ -92,7 +92,6 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
                 unPuntoEnTiempo = true;
             }
         }
-        unPuntoEnTiempo = false;
     }
     return resp;
 }
