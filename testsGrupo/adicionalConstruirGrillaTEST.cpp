@@ -22,6 +22,7 @@ TEST(construirGrillaTEST, comparacionResultado){
 
     grilla g = construirGrilla(esq1,esq2,n,m);
 
-    EXPECT_EQ(n*m, g.size());
-    EXPECT_EQ(g, gres);
+    //EXPECT_EQ(n*m, g.size());
+    //EXPECT_EQ(g, gres);
+    EXPECT_TRUE(grillaIgual(g,gres));
 }

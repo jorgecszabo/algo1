@@ -48,7 +48,7 @@ const recorrido RRulos = {P,
 };
 
 
-
+/*
 TEST(recorridoNoCubiertoTEST, viajePerfecto){
     viaje v = {};
     for(int i = 0; i < R.size(); i++){
@@ -75,3 +75,4 @@ TEST(recorridoNoCubiertoTEST, viajeConImperfeccionesMayoresAlUmbral){
     ASSERT_ELEMENTS(res, {R[3], R[0], R[2]});
 
 }
+*/

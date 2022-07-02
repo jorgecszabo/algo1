@@ -6,7 +6,7 @@ using namespace std;
 
 const gps P = puntoGps(-33.5, -58.89996);
 
-
+/*
 TEST(tiempoTotalTEST, viajeLargo){
     viaje v = {medicion(1.1, P),
                medicion(1.5, P),
@@ -35,3 +35,4 @@ TEST(tiempoTotalTEST, viajeLargoAlt){
     EXPECT_DOUBLE_EQ(tiempoTotal(v),6.1);
 }
 
+*/

@@ -1,7 +1,6 @@
 #include <algorithm>
 #include "auxiliares.h"
 #include <iostream>
-#include <algorithm>
 #include <fstream>
 #include <iomanip>
 
@@ -64,7 +63,7 @@ double velocidadEnKPH(tuple <tiempo, gps> p0, tuple <tiempo, gps> p1) {
                              obtenerTiempo(p0) - obtenerTiempo(p1)
                      ) / 3600;
 
-    return abs(dist / tiempoH);
+    return fabs(dist / tiempoH);
 }
 
 double distanciaEntreCeldas(nombre a, nombre b) {
@@ -81,9 +80,9 @@ nombre puntoANombreCelda(gps x, grilla g) {
         gps esq2 = get<1>(g[i]);
 
         // ESTO:
-        bool enRangoLatitud = obtenerLatitud(esq1) <= obtenerLatitud(x) && obtenerLatitud(x) < obtenerLatitud(esq2);
+        bool enRangoLatitud = obtenerLatitud(esq1) >= obtenerLatitud(x) && obtenerLatitud(x) > obtenerLatitud(esq2);
         bool enRangoLongitud =
-                obtenerLongitud(esq1) < obtenerLongitud(x) && obtenerLongitud(x) <= obtenerLongitud(esq2);
+                obtenerLongitud(esq1) <= obtenerLongitud(x) && obtenerLongitud(x) < obtenerLongitud(esq2);
 
         bool dentroCuadrante = enRangoLatitud && enRangoLongitud;
 
@@ -160,4 +159,27 @@ void guardarRecorridosEnArchivo(vector <recorrido> recorridos, string nombreArch
     }
     myfile.close();
 
+}
+
+bool valorCercano(double x, double y, double delta) { //delta es el margen de error
+    bool res = false;
+    if (fabs(x - y) < delta)
+        res = true;
+    return res;
+}
+
+bool grillaIgual(grilla& grilla1, grilla& grilla2) {
+    bool res = true;
+    if (grilla1.size() == grilla2.size()) {
+        for (int i = 0; i < grilla1.size(); i++) {
+            if (get<2>(grilla1[i]) != get<2>(grilla2[i])) res = false;
+            if (!valorCercano(obtenerLatitud(get<1>(grilla1[i])), obtenerLatitud(get<1>(grilla2[i])), 0.0001)) res = false;
+            if (!valorCercano(obtenerLongitud(get<1>(grilla1[i])), obtenerLongitud(get<1>(grilla2[i])), 0.0001)) res = false;
+            if (!valorCercano(obtenerLatitud(get<0>(grilla1[i])), obtenerLatitud(get<0>(grilla2[i])), 0.0001)) res = false;
+            if (!valorCercano(obtenerLongitud(get<0>(grilla1[i])), obtenerLongitud(get<0>(grilla2[i])), 0.0001)) res = false;
+        }
+    } else {
+        res = false;
+    }
+    return res;
 }

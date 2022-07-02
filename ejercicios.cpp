@@ -49,11 +49,14 @@ distancia distanciaTotal(viaje v) {
 } //t_distanciaTotal(n) = 1 + 1 + c1*n^2 + 5 + 11n + 1 = 8 + c1 * n^2 + 11n --> O(n^2), n = v.size()
 
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
+//Se toma un margen de error de 0.001 KM/h para la comparación.
+
 bool excesoDeVelocidad(viaje v) {
     bool hayExceso = false;
     insertionSort(v);
-    for (int i = 1; i < v.size(); ++i) {
-        if(velocidadEnKPH(v[i-1], v[i]) > 80.0) hayExceso = true;
+    for (int i = 1; i < v.size() && !hayExceso; ++i) {
+        if (!valorCercano(velocidadEnKPH(v[i-1], v[i]), 80.0, 0.001) && velocidadEnKPH(v[i-1], v[i]) > 80.0)
+            hayExceso = true;
     }
 
     return hayExceso;
@@ -140,7 +143,7 @@ int cantidadDeSaltos(grilla g, viaje v) {
 
         double distancia = distanciaEntreCeldas(celdaPrimerPunto, celdaSegundoPunto);
 
-        if (distancia > 1) resp++;
+        if (distancia > 1.0) resp++;
     }
 
     return resp;
