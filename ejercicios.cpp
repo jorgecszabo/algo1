@@ -55,7 +55,7 @@ bool excesoDeVelocidad(viaje v) {
     bool hayExceso = false;
     insertionSort(v);
     for (int i = 1; i < v.size() && !hayExceso; ++i) {
-        if (!valorCercano(velocidadEnKPH(v[i-1], v[i]), 80.0, 0.001) && velocidadEnKPH(v[i-1], v[i]) > 80.0)
+        if (!valorCercano(velocidadEnKPH(v[i-1], v[i]), 80.0, 0.000001) && velocidadEnKPH(v[i-1], v[i]) > 80.0)
             hayExceso = true;
     }
 
