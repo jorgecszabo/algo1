@@ -17,7 +17,7 @@ gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud);
 gps puntoGps(double latitud, double longitud);
 tuple<tiempo, gps> medicion(tiempo t, gps g);
 bool valorCercano(double x, double y, double delta);
-bool grillaIgual(grilla& grilla1, grilla& grilla2);
+bool sonGrillasIguales(grilla& grilla1, grilla& grilla2);
 
 void guardarGrillaEnArchivo(grilla g, string nombreArchivo);
 void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchivo);

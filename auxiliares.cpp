@@ -168,7 +168,7 @@ bool valorCercano(double x, double y, double delta) { //delta es el margen de er
     return res;
 }
 
-bool grillaIgual(grilla& grilla1, grilla& grilla2) {
+bool sonGrillasIguales(grilla& grilla1, grilla& grilla2) {
     bool res = true;
     if (grilla1.size() == grilla2.size()) {
         for (int i = 0; i < grilla1.size(); i++) {

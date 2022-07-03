@@ -24,5 +24,5 @@ TEST(construirGrillaTEST, comparacionResultado){
 
     //EXPECT_EQ(n*m, g.size());
     //EXPECT_EQ(g, gres);
-    EXPECT_TRUE(grillaIgual(g,gres));
+    EXPECT_TRUE(sonGrillasIguales(g, gres));
 }
