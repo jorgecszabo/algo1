@@ -7,7 +7,7 @@ using namespace std;
 TEST(cantidadDeSaltosTEST, dosSaltosLatitud){
     grilla g = construirGrilla(puntoGps(0.0,0.0),desviarPunto(puntoGps(0,0), -3000, 3000), 6, 6);
 
-    //guardarGrillaEnArchivo(g,"grilla.csv");
+    //guardarGrillaEnArchivo(g,"grilla1.csv");
     gps p1 = puntoGps(0, 0);
     gps p2 = desviarPunto(p1, -1100, 250);
     gps p3 = desviarPunto(p2, -100, 2000);

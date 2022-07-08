@@ -74,7 +74,7 @@ double distanciaEntreCeldas(nombre a, nombre b) {
 }
 
 nombre puntoANombreCelda(gps x, grilla g) {
-    nombre res;
+    nombre res = {0,0};
     for (int i = 0; i < g.size(); ++i) {
         gps esq1 = get<0>(g[i]);
         gps esq2 = get<1>(g[i]);
